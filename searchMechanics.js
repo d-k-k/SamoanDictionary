@@ -246,34 +246,19 @@ function updateResults() {
 	var smatchList = new Array();
 	var ematchList = new Array();
 
-	word = word.replace(quote1, " ");
-	word = word.replace(quote2, " ");
-	word = word.replace(quote3, " ");
+	word = word.replace(/ʻ|'|`/g,"").replace(/ā/g,"a").replace(/ō/g,"o").replace(/ū/g,"u").replace(/ē/g,"e").replace(/ī/g,"i");
 
 	//fillout specials check
 
 	for(var i = 0; i < SamoanToEnglishWords.length; i++ ){
-		if (SamoanToEnglishWords[i][0].toLowerCase().indexOf(word) != -1){
-			if(useFreeMatch){
-				smatchList.push(i);
-			}
-			else if(SamoanToEnglishWords[i][0].toLowerCase().indexOf(word) == 0) {
-				smatchList.push(i);
-			}
-		}
-		else if(SamoanToEnglishWords[i][3].toLowerCase().indexOf(word) != -1){
-			if(useFreeMatch){
-				smatchList.push(i);
-			}
-			else if(SamoanToEnglishWords[i][3].toLowerCase().indexOf(word) == 0) {
-				smatchList.push(i);
-			}
-		}
-		else if(SamoanToEnglishWords[i][4].toLowerCase().indexOf(word) != -1){
-			if(useFreeMatch){
-				smatchList.push(i);
-			}
-			else if(SamoanToEnglishWords[i][4].toLowerCase().indexOf(word) == 0) {
+
+		var dictword = SamoanToEnglishWords[i][0].replace(/ʻ|'|`/g,"").replace(/ā/g,"a").replace(/ō/g,"o").replace(/ū/g,"u").replace(/ē/g,"e").replace(/ī/g,"i");
+		var dict = dictword.toLowerCase().indexOf(word);
+
+		if (dict != -1) {
+				if(useFreeMatch){
+				smatchList.push(i);	
+				} else if(dict == 0) {
 				smatchList.push(i);
 			}
 		}
@@ -283,10 +268,10 @@ function updateResults() {
 		else if(useDefSearch && SamoanToEnglishWords[i][1].toLowerCase().indexOf(word) == 0){
 			smatchList.push(i);
 		}
-
-		if(useLimit100 && smatchList.length >= 300){
-			break;
-		}
+		//currently disabling the 300 limit
+		// if(useLimit100 && smatchList.length >= 300){
+		// 	break;
+		// }
 	}
 
 	for(var i = 0; i < EnglishToSamoanWords.length; i++){
@@ -310,12 +295,14 @@ function updateResults() {
 		}
 	}
 
-	document.getElementById(srl).innerHTML =
-	 "&nbspResults("+smatchList.length+"):<br>--------------<br>";
+	//document.getElementById(srl).innerHTML =
+	var tobeInnerHtml = "";
+	 	"&nbspResults("+smatchList.length+"):<br>--------------<br>";
 	for(var i = 0; i < smatchList.length; i++){
 		
 		///*
-		document.getElementById(srl).innerHTML += "&nbsp" +
+		//document.getElementById(srl).innerHTML += "&nbsp" +
+		tobeInnerHtml += "&nbsp" +
 			SamoanToEnglishWords[smatchList[i]][0] + " - " +
 			SamoanToEnglishWords[smatchList[i]][1] + "  (" +
 			SamoanToEnglishWords[smatchList[i]][2] + ")<br>";
@@ -333,19 +320,21 @@ function updateResults() {
 		*/
 
 	}
-	document.getElementById(erl).innerHTML =
-	 "&nbspResults("+ematchList.length+"):<br>--------------<br>";
+
+	document.getElementById(srl).innerHTML = tobeInnerHtml;
+
+	//document.getElementById(erl).innerHTML =
+	tobeInnerHtml = 
+	 	"&nbspResults("+ematchList.length+"):<br>--------------<br>";
 	for(var i = 0; i < ematchList.length; i++){
-		document.getElementById(erl).innerHTML += "&nbsp" +
+		//document.getElementById(erl).innerHTML += "&nbsp" +
+		tobeInnerHtml += "&nbsp" +
 			EnglishToSamoanWords[ematchList[i]][0] + " - " +
 			EnglishToSamoanWords[ematchList[i]][1] + "  (" +
 			EnglishToSamoanWords[ematchList[i]][2] + ")<br>";
 	}
 
-
-	//super slow! needs more efficientcy
-
-
+	document.getElementById(erl).innerHTML = tobeInnerHtml;
 
 } //end updateresults
 
