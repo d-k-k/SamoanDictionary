@@ -1,2 +1,2 @@
 # SamoanDictionary
-Webpage Samoan Dictionary implemented with javascript.
+Webpage Samoan dictionary implemented with javascript.
