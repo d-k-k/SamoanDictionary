@@ -296,7 +296,7 @@ function updateResults() {
 	}
 
 	//document.getElementById(srl).innerHTML =
-	var tobeInnerHtml = "";
+	var tobeInnerHtml =
 	 	"&nbspResults("+smatchList.length+"):<br>--------------<br>";
 	for(var i = 0; i < smatchList.length; i++){
 		
