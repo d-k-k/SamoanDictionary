@@ -1,7 +1,7 @@
 // (C) 2014 - Dylan Kobayashi, Jason Leigh
 // Laboratory for Advanced Visualization and Applications
 // University of Hawaii at Manoa
-// Version 8/2/2015
+// Version 8/4/2015
 
 var searchZone = "searchZone";
 var freeMatch = "freeMatch";
@@ -352,24 +352,36 @@ function updateResults() {
 	} //end searching for English
 
 
-	var tobeInnerHtml =
-	 	"&nbspResults("+smatchList.length+"):<br>--------------<br>";
-	for(var i = 0; i < smatchList.length; i++){
-		tobeInnerHtml += "&nbsp" +
-			combinedSandE[smatchList[i]][0] + " - " +
+	var sortArrayS=[];
+	for (var i=0; i < smatchList.length; i++){
+		sortArrayS[i] = 	combinedSandE[smatchList[i]][0] + " - " +
 			combinedSandE[smatchList[i]][1] + "  (" +
 			combinedSandE[smatchList[i]][2] + ")<br>";
 	}
+	sortArrayS.sort();
+
+	var tobeInnerHtml =
+	 	"&nbspResults("+smatchList.length+"):<br>--------------<br>";
+	for(var i = 0; i < smatchList.length; i++){
+		tobeInnerHtml += "&nbsp" + sortArrayS[i];
+	}
+
 	document.getElementById(srl).innerHTML = tobeInnerHtml;
 
-	tobeInnerHtml = 
-	 	"&nbspResults("+ematchList.length+"):<br>--------------<br>";
-	for(var i = 0; i < ematchList.length; i++){
-		tobeInnerHtml += "&nbsp" +
-			combinedSandE[ematchList[i]][1] + " - " +
+	var sortArrayE=[];
+	for (var i=0; i < ematchList.length; i++){
+		sortArrayE[i] = 	combinedSandE[ematchList[i]][1] + " - " +
 			combinedSandE[ematchList[i]][0] + "  (" +
 			combinedSandE[ematchList[i]][2] + ")<br>";
 	}
+	sortArrayE.sort();
+
+	tobeInnerHtml = 
+	 	"&nbspResults("+ematchList.length+"):<br>--------------<br>";
+	 	for (var i = 0; i < sortArrayE.length; i++){
+	 		tobeInnerHtml += "&nbsp" + sortArrayE[i];
+	 	}
+
 	document.getElementById(erl).innerHTML = tobeInnerHtml;
 
 } //end updateresults
@@ -481,17 +493,17 @@ function showInfoPage() {
 	console.log("size of info text:" + infoTextHeight);
 
 	document.getElementById(theMainDiv).innerHTML +=
-	"<br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>Version 2.1 (August 2, 2015)</b></center></div>";
+	"<br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>Version 2.2 (August 4, 2015)</b></center></div>";
 	document.getElementById(theMainDiv).innerHTML +=
 	"<br><br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>Original dictionary data by James Metz</b></center></div>";
 	document.getElementById(theMainDiv).innerHTML +=
-	"<br><br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>Under Edit by John Maher</b></center></div>";
+	"<br><br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>Edited by John Maher</b></center></div>";
 	document.getElementById(theMainDiv).innerHTML +=
 	"<div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center>Department of Indo-Pacific Languages and Literature</center>"+
 	"<center>University of Hawai\ʻi at M\ānoa</center>"+
 	"</div>";
 	document.getElementById(theMainDiv).innerHTML +=
-	"<br><br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>App by Dylan Kobayashi, Jason Leigh</b></center></div>";
+	"<br><br><div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center><b>Application by Dylan Kobayashi, Jason Leigh</b></center></div>";
 	document.getElementById(theMainDiv).innerHTML +=
 	"<div style='font-size:"+infoTextHeight+"px; font-family: \"Helvetica\";'><center>Laboratory for Advanced Visualization & Applications</center>"+
 	"<center>Department of Information & Computer Sciences</center>"+
